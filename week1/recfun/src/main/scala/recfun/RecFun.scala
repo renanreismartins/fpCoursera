@@ -15,16 +15,27 @@ object RecFun extends RecFunInterface {
    * Exercise 1
    */
   def pascal(c: Int, r: Int): Int = {
-    if (c == 0) return 1
-    if (c == r) return 1
+    if (c == 0) 1 else
+      if (c == r) 1 else
+        pascal(c - 1, r - 1) + pascal(c, r - 1)
 
-    pascal(c - 1, r - 1) + pascal(c, r - 1)
   }
 
   /**
    * Exercise 2
    */
-  def balance(chars: List[Char]): Boolean = ???
+  def balance(chars: List[Char]): Boolean = {
+    def balance2(chars: List[Char], openParentheses: Int): Boolean = {
+      if (chars.isEmpty) openParentheses == 0 else
+        if (chars.head == '(') balance2(chars.tail, openParentheses + 1) else
+          if (chars.head == ')' && openParentheses == 0) false else
+            if (chars.head == ')')  balance2(chars.tail, openParentheses - 1) else
+
+      balance2(chars.tail, openParentheses)
+    }
+
+    balance2(chars, 0)
+  }
 
   /**
    * Exercise 3
